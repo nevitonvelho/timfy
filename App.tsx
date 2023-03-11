@@ -1,20 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {View, StatusBar } from 'react-native';
+import Home from './src/pages/Home';
+import Calendar from './src/pages/Calendar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import {Entypo, Feather, SimpleLineIcons } from '@expo/vector-icons'
+import New from './src/pages/New';
+import ButtonNew from './src/components/ButtonNes';
+
+const Tab = createBottomTabNavigator();
+
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    
+ 
+      <NavigationContainer>
+      <StatusBar backgroundColor="black" barStyle="light-content" translucent={false}/>
+        <Tab.Navigator 
+          
+          screenOptions={({ route }) => ({
+            tabBarShowLabel: false,
+            tabBarActiveTintColor: '#BC00DD',
+            tabBarInactiveTintColor: 'gray',
+            tabBarStyle: {
+              backgroundColor: '#fff',
+              borderTopColor: 'transparent',
+            },
+          })}
+        >
+            <Tab.Screen name="Inicio" component={Home} options={{ headerShown: false, tabBarIcon:({size, color}) => (
+              <Entypo name="home" size={size} color={color}/>
+            )}}/>
+
+      
+
+            <Tab.Screen name="New" component={New} options={{headerShown: false,tabBarLabel:'', tabBarIcon:({size, color}) => (
+              <ButtonNew size={size} color={color}/>
+            )}}/>
+
+
+            <Tab.Screen name="Calendario" component={Calendar} options={{headerShown: false, tabBarIcon:({size, color}) => (
+              <Feather  name="calendar" size={size} color={color}/>
+            )}}/>
+        </Tab.Navigator>
+        </NavigationContainer>
+   
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
